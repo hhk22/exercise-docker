@@ -129,6 +129,17 @@ docker run \
 ```
 
 
+## Docker Images
+
+### DockerFile 없이 Image 생성하기. 
+
+```
+docker run -it --name my_ubuntu ubuntu:focal
+cat > test.txt "Hello world!!"
+ctrl + p + q
+
+docker commit -a <author_name> <running container name> <new image name>:<tag>
+```
 
 
 
