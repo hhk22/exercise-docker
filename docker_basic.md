@@ -6,6 +6,24 @@ docker run [Image]
 docker create [Image]  
 docker start [Container]
 
+## RUN / CMD / ENTRYPOINT
+
+- RUN : 도커 이미지를 빌드하는 순간에 실행되는 명령어. 
+- CMD : 생성된 이미지를 실행할때 실행되는 최초 명령어. 
+- ENTRYPOINT : CMD와 같지만, ENTRYPOINT는 항상 실행이되고, CMD는 변경이 가능. 
+
+```
+...
+#Dockerfile
+CMD ["echo", "hello"]
+docker run <docker_image> echo hello world
+>> hello world
+
+#Dockerfile
+ENTRYPOINT ["echo", "hello"]
+docker run <docker_image> echo hello world
+>> hello hello world
+```
 
 ## DockerFile RUN
 
@@ -140,6 +158,67 @@ ctrl + p + q
 
 docker commit -a <author_name> <running container name> <new image name>:<tag>
 ```
+
+## docker image 경량화
+
+- layer 수 줄이기 
+
+```
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt-get install
+
+>>>
+
+RUN apt-get update && \
+    apt-get upgrade && \
+    apt-get install
+
+```
+
+- RUN 명령어에 --no-cache 옵션이 있는지 확인. 
+
+```
+RUN apk add --no-cache ... && \
+    apk del --no-cache git
+    ... 
+```
+
+
+- 베이스 이미지가 SLIM 버전과 같은 가벼운 이미지를 활용하자. 
+
+- multi stage
+
+```
+
+FROM node:16-alpine AS base
+LABEL maintainer="FastCampus Park <fastcampus@fastcampus.com>"
+LABEL description="Simple server with Node.js"
+
+WORKDIR /app
+COPY package*.json ./
+
+
+FROM base AS build
+RUN npm install
+
+
+FROM base AS release
+COPY --from=build /app/node_modules ./node_modules
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "server.js" ]
+
+```
+
+
+
+
+
+
+
+
 
 
 
