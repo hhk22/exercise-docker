@@ -47,3 +47,10 @@ ex)
 
 - Jenkins관리 -> aws -> add -> key등록 (aws Access key)
 
+## Jenkins Account
+
+```
+ID: test
+PW: test
+```
+

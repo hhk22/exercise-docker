@@ -1,0 +1,39 @@
+
+## deploy 용 EC2 준비하기. 
+
+```
+sudo apt update
+sudo apt install -y docker.io
+sudo apt install -y default-jdk
+
+sudo chmod 400 /var/run/docker.sock
+
+docker ps && docker version
+
+sudo apt install -y awscli
+```
+
+## aws configure
+
+- IAM 에서 사용자 생성 후, AWS Access Key ID / AWS Secret Access Key 생성. 
+- 아래와 같이 aws configure 설정. 
+```
+aws configure
+AWS Acess KEy ID: ... 
+AWS Secret Access Key: ...
+....
+
+
+>>> 아래에 configure 정보가 저장되어 있음. 
+~/.aws/credentials : ID/PW
+~/.aws/config
+```
+
+- AWS ECR 생성. 
+- 아래와 같은 푸시명령 실행. 
+
+```
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 956675039632.dkr.ecr.us-east-1.amazonaws.com
+
+```
+
