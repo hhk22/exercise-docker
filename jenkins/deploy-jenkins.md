@@ -34,6 +34,10 @@ AWS Secret Access Key: ...
 
 ```
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 956675039632.dkr.ecr.us-east-1.amazonaws.com
-
+>> Login Succeed
 ```
+
+Manage Credentials > Stores scoped to Jenkins(System) > Global Credentials > Add Credentials > New Credentials > SSH KEY kind. > Private Key
+
+
 
