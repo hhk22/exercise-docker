@@ -62,3 +62,22 @@ pipeline {
     }
 }
 ```
+
+## build gradle
+
+```
+def mainDir="jenkins/2-jenkins-docker"
+
+pipeline {
+    agent any
+
+    stages {
+        stage("Build Codes by Gradle") {
+            sh """
+            cd ${mainDir}
+            ./gradlew clean build
+            """
+        }
+    }
+}
+```
