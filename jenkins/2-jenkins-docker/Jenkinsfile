@@ -14,14 +14,15 @@ pipeline {
                 checkout scm
             }
         }
-        // stage('Build Codes by Gradle') {
-        //     steps {
-        //         sh """
-        //         cd ${mainDir}
-        //         ./gradlew clean build
-        //         """
-        //     }
-        // }
+        
+        stage('Build Codes by Gradle') {
+            steps {
+                sh """
+                cd ${mainDir}
+                ./gradlew clean build
+                """
+            }
+        }
         // stage('Build Docker Image by Jib & Push to AWS ECR Repository') {
         //     steps {
         //         withAWS(region:"${region}", credentials:"aws-key") {

@@ -41,3 +41,24 @@ Manage Credentials > Stores scoped to Jenkins(System) > Global Credentials > Add
 
 
 
+## Github 과 연동. 
+
+ssh-keygen 을 통해 ssh-key / ssh-key.pub 을 생성. 
+github에서 Settings > Deploy keys > ssh-key.pub 내용을 등록.  
+Jenkins > Manage Credentials > ssh-key 내용을 등록. 
+
+Jenkinsfile에 아래 내용을 등록. 
+
+```
+pipeline {
+    agent any 
+
+    stages {
+        stage("pull codes from github") {
+            steps {
+                checkout scm
+            }
+        }
+    }
+}
+```
