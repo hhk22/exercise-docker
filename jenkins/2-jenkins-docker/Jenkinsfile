@@ -3,7 +3,7 @@ def ecrLoginHelper="docker-credential-ecr-login"
 def region="us-east-1"
 def ecrUrl="956675039632.dkr.ecr.us-east-1.amazonaws.com"
 def repository="hyeonghwan"
-def deployHost="ec2-54-226-199-229.compute-1.amazonaws.com"
+def deployHost="ec2-54-198-150-126.compute-1.amazonaws.com"
 
 pipeline {
     agent any
@@ -34,6 +34,15 @@ pipeline {
                         cd ${mainDir}
                         ./gradlew jib
                     """
+                }
+            }
+        }
+        stage('Deploy to AWS EC2 VM'){
+            steps{
+                sshagent(credentials : ["deploy-key"]) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${deployHost} \
+                     'aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrUrl}/${repository}; \
+                      docker run -d -p 80:8080 -t ${ecrUrl}/${repository}:${currentBuild.number};'"
                 }
             }
         }
