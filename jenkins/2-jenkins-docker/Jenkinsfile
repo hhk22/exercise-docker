@@ -32,7 +32,7 @@ pipeline {
                         chmod +x ${ecrLoginHelper}
                         mv ${ecrLoginHelper} /usr/local/bin/
                         cd ${mainDir}
-                        ./gradlew jib'
+                        ./gradlew jib
                     """
                 }
             }
