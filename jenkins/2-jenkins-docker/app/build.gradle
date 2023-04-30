@@ -33,6 +33,11 @@ jib {
     from {
         image = 'adoptopenjdk/openjdk11:alpine-jre'
     }
+    to {
+        image = "956675039632.dkr.ecr.us-east-1.amazonaws.com/hyeonghwan"
+        credHelper = 'ecr-login'
+        tags = ['latest', "test-" + System.currentTimeMillis()]
+    }
     container {
 
         mainClass = 'com.test.StartApplication'
