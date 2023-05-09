@@ -25,9 +25,10 @@ echo $IP
 docker pull gradle:jdk11
 docker pull bitnami/aws-cli:latest
 
-clair-scanner --ip ${IP} --clair=http://localhost:6060  --log="clair.log" --report="gradle_report.txt"
+clair-scanner --ip ${IP} --clair="http://localhost:6060"  --log="clair.log" --report="gradle_report.txt" <docker image>
 
-
+ex) 
+clair-scanner --ip ${IP} --clair="http://localhost:6060" --log="clair.log" --report="gradle_report.txt" bitnami/aws-cli:latest
 
 ```
 
